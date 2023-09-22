@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<ul class="list-group">
+    {% for mealplan in user.mealplans %}
+        <li class="list-group-item">
+            <a href="{{ url_for('main.show_mealplan', mealplan_id=mealplan.id) }}">
+                {{ mealplan.name }}
+            </a>
+            <a role="button" href="{{ url_for('main.mealplan_form', mealplan_id=mealplan.id) }}" class="btn btn-info pull-right" >
+                Edit
+            </a>
+            <a role="button" href="{{ url_for('main.delete_mealplan', mealplan_id=mealplan.id) }}" class="btn btn-danger pull-right">
+                Delete
+            </a>
+
+        </li>
+    {% endfor %}
+    {% if user == current_user %}
+        <button class="btn btn-primary btn-lg btn-block"><a href="{{ url_for('main.mealplan_form', mealplan_id='new') }}">{{ _('Create a New Meal Plan') }}</a></button>
+    {% endif %}
+</ul>
+{% endblock %}

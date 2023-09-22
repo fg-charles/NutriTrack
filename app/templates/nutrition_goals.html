@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<h1>Daily Nutritional Goals</h1>
+<p>As suggested by the 
+  <a href="https://www.dietaryguidelines.gov/sites/default/files/2021-03/Dietary_Guidelines_for_Americans-2020-2025.pdf">
+    Dietary Guidelines for Americans
+  </a> and the 
+  <a href="https://pubmed.ncbi.nlm.nih.gov/15883556/">
+    Mifflin-St Jeor formula.
+  </a></p>
+<table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nutrient</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for key, value in goals.items() %}
+     <tr>
+         <td> {{ key }} </td>
+         <td> {{ value }} </td>
+     </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

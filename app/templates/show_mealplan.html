@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    {% if current_user.info != None %}
+        {% set user_data_d = current_user.info.get_data(display=True) %}
+    {% endif %}
+    {% set mealplan_data_d = mealplan.info.get_data(display=True) %}
+    <h1>{{ mealplan.name }} by {{mealplan.user.username}}</h1>
+    <h4> Length of Diet: {{ mealplan.length }} days</h4>
+    <h3>Overview:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    {% if current_user.info != None %}
+                        <th>Your Goals</th>
+                    {% endif %}
+                    <th>Diet Daily Average</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for attr in mealplan_data_d.keys() %}
+                <tr>
+                    <th>{{ attr }}</th>
+                    {% if current_user.info != None %}
+                        <th>{{ user_data_d[attr] }}</th>
+                    {% endif %}
+                    <th> {{ mealplan_data_d[attr] }}</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <h3>Ingredients:</h3>
+    {% for fooditem in mealplan.fooditems %}
+        <table class="table">
+            <tr>
+                <th>{{ fooditem.name }}</th>
+            </tr>
+            <tr>
+                <td>Number of servings</td>
+                <td>{{ fooditem.no_servings }}</td>
+            </tr>
+        {% for attr in nutri_attrs %}
+            <tr>
+                <td>{{ attr }}</td>
+                <td>{{ fooditem.info[attr] }}</td>
+            </tr>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    </table>
+{% endblock %}

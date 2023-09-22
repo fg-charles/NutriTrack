@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<form method="post", action="">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.length.label }}
+        {{ form.length(class="form-control") }}
+    </div> 
+    <ul class="list-inline" id="fooditems">
+    {% for fooditem in form.fooditems %}
+        <li>{{ fooditem(class="table") }} </li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <button type="button" id="add_item" class="btn btn-primary">Add Food Item</button>
+    {{form.submit(class="btn btn-primary")}}
+</form>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>  
+    var addCount = 0
+    $(document).ready(function() {
+        if ($('table').length != 0) {
+            addCount = parseInt($('table').last().attr('id').split('-')[1]) + 1
+        }
+        console.log('hello!')
+
+        $('ul#fooditems li').append('<button type="button" class="btn btn-default" id="delete_item">Delete Item</button>')
+    });
+
+    $(function(){
+        $('#add_item').on('click',function(){
+            $('#fooditems').append(GetFoodItem(addCount))
+            addCount += 1;
+        });
+    });
+
+    $(function() {
+        $('form').on('click', '#delete_item', function() {
+            $(this).closest('li').remove();
+            console.log('hello!')
+        });
+    });
+
+
+    function GetFoodItem(addCount) {
+       return ('<li>\
+        <table id="fooditems-' + addCount + '" class="table">\
+            <tbody>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + 'name">Food Item Name</label></th>\
+                    <td><input id="fooditems-' + addCount + '-name" name="fooditems-' + addCount + '-name" type="text" value="New Food Item"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-no_servings">Number of Servings Eaten</label></th>\
+                    <td><input id="fooditems-' + addCount + '-no_servings" name="fooditems-' + addCount + '-no_servings" type="number" value="1.00"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-calories">Calories (kcal)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-calories" name="fooditems-' + addCount + '-calories" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-protein">Protein (g)</label></th>\
+                <td><input id="fooditems-' + addCount + '-protein" name="fooditems-' + addCount + '-protein" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-carbs">Carbohydrates (g)</label></th>\
+                <td><input id="fooditems-' + addCount + '-carbs" name="fooditems-' + addCount + '-carbs" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-fiber">Fiber (g)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-fiber" name="fooditems-' + addCount + '-fiber" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-sugar">Added Sugars (g)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-sugar" name="fooditems-' + addCount + '-sugar" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-fat">Total Fat (g)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-fat" name="fooditems-' + addCount + '-fat" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-sat_fat">Saturated Fat (g)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-sat_fat" name="fooditems-' + addCount + '-sat_fat" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-calcium">Calcium (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-calcium" name="fooditems-' + addCount + '-calcium" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-iron">Iron (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-iron" name="fooditems-' + addCount + '-iron" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-magnesium">Magnesium (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-magnesium" name="fooditems-' + addCount + '-magnesium" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-phosphorus">Phosphorus (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-phosphorus" name="fooditems-' + addCount + '-phosphorus" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-potassium">Potassium (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-potassium" name="fooditems-' + addCount + '-potassium" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-sodium">Sodium (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-sodium" name="fooditems-' + addCount + '-sodium" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-zinc">Zinc (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-zinc" name="fooditems-' + addCount + '-zinc" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitA">Vitamin A (mcg RAE)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitA" name="fooditems-' + addCount + '-vitA" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitE">Vitamin E (mg AT)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitE" name="fooditems-' + addCount + '-vitE" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitD">Vitamin D (IU)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitD" name="fooditems-' + addCount + '-vitD" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitC">Vitamin C (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitC" name="fooditems-' + addCount + '-vitC" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-thiamin">Thiamin (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-thiamin" name="fooditems-' + addCount + '-thiamin" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-riboflavin">Riboflavin (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-riboflavin" name="fooditems-' + addCount + '-riboflavin" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-niacin">Niacin (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-niacin" name="fooditems-' + addCount + '-niacin" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitB6">Vitamin B6 (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitB6" name="fooditems-' + addCount + '-vitB6" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitB12">Vitamin B12 (mcg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitB12" name="fooditems-' + addCount + '-vitB12" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-chlorine">Chlorine (mg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-chlorine" name="fooditems-' + addCount + '-chlorine" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-vitK">Vitamin K (mcg)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-vitK" name="fooditems-' + addCount + '-vitK" type="text" value="0"></td>\
+                </tr>\
+                <tr>\
+                    <th><label for="fooditems-' + addCount + '-folate">Folate (mcg DFE)</label></th>\
+                    <td><input id="fooditems-' + addCount + '-folate" name="fooditems-' + addCount + '-folate" type="text" value="0"></td>\
+                </tr>\
+            </tbody>\
+        </table>\
+        <button type="button" id="delete_item" class="btn btn-default">Delete Item</button></li>')
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+    <table class="table table-hover">
+        <tr>
+            <td width="70px">
+                <a href="{{ url_for('main.user', username=mealplan.user.username) }}">
+                    <img src="{{ mealplan.user.avatar(70) }}" />
+                </a>
+            </td>
+            <td>
+                {% set user_link %}
+                    <a href="{{ url_for('main.user', username=mealplan.user.username) }}">
+                        {{ mealplan.user.username }}
+                    </a>
+                {% endset %}
+                {% set mealplan_link %}
+                    <a href="{{ url_for('main.show_mealplan', mealplan_id=mealplan.id) }}">
+                        {{ mealplan.name }}
+                    </a>
+                {% endset %}
+                {{ _('%(username)s made %(mealplan)s %(when)s',
+                    username=user_link, when=moment(mealplan.timestamp).fromNow(), mealplan=mealplan_link) }}
+                <table id="mealplan-{{mealplan.id}}", class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Length</th>
+                            <th>Calories</th>
+                            <th>Protein</th>
+                            <th>Fat</th>
+                            <th>Carbohydrates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{mealplan.length}} days</td>
+                            <td>{{mealplan.info.calories}} kcal</td>
+                            <td>{{mealplan.info.protein}} g</td>
+                            <td>{{mealplan.info.fat}} g</td>
+                            <td>{{mealplan.info.carbs}} g</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
